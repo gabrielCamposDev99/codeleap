@@ -22,6 +22,7 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'linebreak-style': 0,
     'react/require-default-props': 'off',
+    'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': 'off',
     'import/extensions': 'off',
     'react/button-has-type': 'off',
