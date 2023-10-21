@@ -14,6 +14,7 @@ export const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => (
             Username
           </Label>
           <Input
+            required
             id="username"
             placeholder="John doe"
             autoCapitalize="none"
