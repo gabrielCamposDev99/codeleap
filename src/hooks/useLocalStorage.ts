@@ -1,23 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UserType } from '@/validation/interfaces/ILogin';
 
-export const useLocalStorage = (
-  keyName: string,
-  defaultValue: UserType | null
-) => {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const value = window.localStorage.getItem(keyName);
-      if (value) {
-        return JSON.parse(value);
-      }
-      window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
-      return defaultValue;
-    } catch (err) {
-      return defaultValue;
-    }
-  });
-  const setValue = (newValue: UserType) => {
+export const useLocalStorage = (keyName: string) => {
+  const [storedValue, setStoredValue] = useState<UserType | null>(null);
+
+  const setValue = (newValue: UserType | null) => {
     try {
       window.localStorage.setItem(keyName, JSON.stringify(newValue));
     } catch (err) {
@@ -26,5 +13,17 @@ export const useLocalStorage = (
       setStoredValue(newValue);
     }
   };
-  return [storedValue, setValue];
+
+  useEffect(() => {
+    try {
+      const value = window.localStorage.getItem(keyName);
+      if (value) {
+        setStoredValue(JSON.parse(value));
+      }
+    } catch (err) {
+      // Ignoramos o erro
+    }
+  }, [keyName]);
+
+  return { storedValue, setValue };
 };
