@@ -4,10 +4,11 @@ import React, {
 import { redirect } from 'react-router-dom';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { UserType } from '@/validation/interfaces/ILogin';
 
 type AuthContextProps = {
   user: unknown;
-  login: (data: unknown) => Promise<void>;
+  login: (data: UserType) => Promise<void>;
   logout: () => void;
 };
 
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // call this function when you want to authenticate the user
   const login = useCallback(
-    async (data: unknown) => {
+    async (data: UserType) => {
       setUser(data);
       redirect('/profile');
     },

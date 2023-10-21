@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { UserType } from '@/validation/interfaces/ILogin';
 
-export const useLocalStorage = (keyName: string, defaultValue: unknown) => {
+export const useLocalStorage = (
+  keyName: string,
+  defaultValue: UserType | null
+) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const value = window.localStorage.getItem(keyName);
@@ -13,14 +17,14 @@ export const useLocalStorage = (keyName: string, defaultValue: unknown) => {
       return defaultValue;
     }
   });
-  const setValue = (newValue: unknown) => {
+  const setValue = (newValue: UserType) => {
     try {
       window.localStorage.setItem(keyName, JSON.stringify(newValue));
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log('Error');
+      throw Error('Error setValue useLocalStorage');
+    } finally {
+      setStoredValue(newValue);
     }
-    setStoredValue(newValue);
   };
   return [storedValue, setValue];
 };
