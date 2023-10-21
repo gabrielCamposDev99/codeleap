@@ -28,6 +28,8 @@ module.exports = {
     'react/button-has-type': 'off',
     'react/prop-types': 'off',
     'comma-dangle': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
+    '@typescript-eslint/no-shadow': 'off',
     '@typescript-eslint/comma-dangle': 'off',
     'react/function-component-definition': [
       2,
