@@ -31,6 +31,7 @@ module.exports = {
     'react/jsx-no-constructed-context-values': 'off',
     '@typescript-eslint/no-shadow': 'off',
     '@typescript-eslint/comma-dangle': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
     'react/function-component-definition': [
       2,
       {
