@@ -1,28 +1,58 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
-import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { UserType } from '@/validation/interfaces/ILogin';
+import { userSchema } from '@/validation/schemas/user-schema';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from './ui/form';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => (
-  <div className={cn('grid gap-6', className)} {...props}>
-    <form>
-      <div className="grid gap-2">
-        <div className="grid gap-1">
-          <Label className="sr-only" htmlFor="username">
-            Username
-          </Label>
-          <Input
-            required
-            id="username"
-            placeholder="John doe"
-            autoCapitalize="none"
-            autoCorrect="off"
-          />
-        </div>
-        <Button>Sign In with Username</Button>
-      </div>
-    </form>
-  </div>
-);
+export const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
+  const form = useForm<UserType>({
+    resolver: zodResolver(userSchema),
+  });
+
+  const onSubmit = (data: UserType) => {
+    // eslint-disable-next-line no-console
+    console.log('DATA', data);
+  };
+  return (
+    <div className={cn('grid gap-6', className)} {...props}>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="grid gap-2">
+            <div className="grid gap-1">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="John Doe"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button type="submit">Sign In with Username</Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
+};
