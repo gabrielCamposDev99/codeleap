@@ -13,17 +13,18 @@ import {
   FormLabel,
   FormMessage,
 } from './ui/form';
+import { useAuth } from '@/contexts/AuthProvider';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
+  const { login } = useAuth();
   const form = useForm<UserType>({
     resolver: zodResolver(userSchema),
   });
 
   const onSubmit = (data: UserType) => {
-    // eslint-disable-next-line no-console
-    console.log('DATA', data);
+    login(data);
   };
   return (
     <div className={cn('grid gap-6', className)} {...props}>

@@ -1,13 +1,13 @@
 import React, {
   createContext, useCallback, useContext, useMemo
 } from 'react';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { UserType } from '@/validation/interfaces/ILogin';
 
 type AuthContextProps = {
-  user: unknown;
+  user: UserType | null;
   login: (data: UserType) => Promise<void>;
   logout: () => void;
 };
@@ -19,22 +19,23 @@ type AuthProviderProps = {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useLocalStorage('user', null);
+  const { setValue, storedValue: user } = useLocalStorage('user');
+  const navigate = useNavigate();
 
   // call this function when you want to authenticate the user
   const login = useCallback(
     async (data: UserType) => {
-      setUser(data);
-      redirect('/profile');
+      setValue(data);
+      navigate('private', { replace: true });
     },
-    [setUser]
+    [navigate, setValue]
   );
 
   // call this function to sign out logged in user
   const logout = useCallback(() => {
-    setUser(null);
-    redirect('/');
-  }, [setUser]);
+    setValue(null);
+    navigate('/', { replace: true });
+  }, [navigate, setValue]);
 
   const value = useMemo(
     () => ({

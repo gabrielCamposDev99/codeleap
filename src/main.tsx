@@ -15,10 +15,10 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
+    <BrowserRouter>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <AuthProvider>
+          <QueryClientProvider client={queryClient}>
             <Routes>
               <Route path="/" element={<App />} />
               <Route
@@ -31,10 +31,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Route path="private" element={<div>private</div>} />
               </Route>
             </Routes>
-          </BrowserRouter>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </AuthProvider>
-    </ThemeProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
