@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = useCallback(
     async (data: UserType) => {
       setValue(data);
-      navigate('private', { replace: true });
+      navigate('posts', { replace: true });
     },
     [navigate, setValue]
   );
