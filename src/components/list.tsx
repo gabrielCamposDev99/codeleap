@@ -10,9 +10,14 @@ const List = <T,>(props: ListProps<T>) => {
   const { data, render, className } = props;
   if (!data || !data.length) {
     return (
-      <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-        Empty data.
-      </h3>
+      <div className="flex flex-col justify-center items-center">
+        <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+          No posts to display.
+        </h4>
+        <p className="leading-7 [&:not(:first-child)]:mt-6">
+          Create a new post now and share what&apos;s on your mind. #FirstPost
+        </p>
+      </div>
     );
   }
 
