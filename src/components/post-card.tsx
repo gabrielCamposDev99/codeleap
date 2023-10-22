@@ -26,6 +26,7 @@ import { PostType } from '@/validation/interfaces/IPost';
 import { useAuth } from '@/contexts/AuthProvider';
 import { formatDateByLocale } from '@/lib/utils';
 import { EditPostForm } from '@/components/forms/post/edit-post-form';
+import { useDeletePost } from '@/actions/api/postsApi/useDeletePost';
 
 type PostCardProps = PostType;
 export const PostCard = (props: PostCardProps) => {
@@ -37,6 +38,8 @@ export const PostCard = (props: PostCardProps) => {
     id,
     created_datetime: createdDateTime,
   } = props;
+
+  const { deletePostMutate } = useDeletePost();
 
   return (
     <Card key={`${title}${id}`}>
@@ -78,6 +81,7 @@ export const PostCard = (props: PostCardProps) => {
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
                     className={buttonVariants({ variant: 'destructive' })}
+                    onClick={() => deletePostMutate({ id })}
                   >
                     Continue
                   </AlertDialogAction>
