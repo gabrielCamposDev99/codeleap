@@ -9,7 +9,7 @@ export const BasicRoute = ({ children }: BasicRouteProps) => {
   const { user } = useAuth();
 
   if (user?.username) {
-    return <Navigate to="/private" />;
+    return <Navigate to="/posts" />;
   }
   return children;
 };
