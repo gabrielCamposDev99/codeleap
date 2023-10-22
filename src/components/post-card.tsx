@@ -2,6 +2,27 @@ import { Trash2, PenSquare } from 'lucide-react';
 import {
   Card, CardContent, CardHeader, CardTitle
 } from './ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
+import { PostForm } from './post-form';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from './ui/alert-dialog';
+import { buttonVariants } from './ui/button';
 
 export const PostCard = () => (
   <Card>
@@ -10,8 +31,45 @@ export const PostCard = () => (
         My First Post at CodeLeap Network!
       </CardTitle>
       <div className="flex justify-between gap-6">
-        <PenSquare className="h-[2rem] w-[2rem] hover:cursor-pointer" />
-        <Trash2 className="h-[2rem] w-[2rem] hover:cursor-pointer" />
+        <Dialog>
+          <DialogTrigger asChild>
+            <PenSquare className="h-[2rem] w-[2rem] hover:cursor-pointer" />
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-container">
+            <DialogHeader>
+              <DialogTitle>Edit Item</DialogTitle>
+              <DialogDescription>
+                Make changes to your post here. Click save when youre done.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <PostForm />
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <Trash2 className="h-[2rem] w-[2rem] hover:cursor-pointer" />
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                className={buttonVariants({ variant: 'destructive' })}
+              >
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </CardHeader>
     <CardContent>
