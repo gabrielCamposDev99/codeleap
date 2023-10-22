@@ -32,6 +32,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'off',
     '@typescript-eslint/comma-dangle': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
+    'jsx-a11y/heading-has-content': 'off',
     'react/function-component-definition': [
       2,
       {
