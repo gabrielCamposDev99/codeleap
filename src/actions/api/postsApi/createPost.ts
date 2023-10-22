@@ -1,10 +1,12 @@
 import { toast } from 'react-toastify';
 import { ApiError, BadRequestError, NetworkError } from '@/lib/errors';
-import { PostType } from '@/validation/interfaces/IPost';
+import { CreatePostType, PostType } from '@/validation/interfaces/IPost';
 
 const JSON_CONTENT_TYPE = 'application/json';
 
-export const createPost = async (options: PostType): Promise<PostType> => {
+export const createPost = async (
+  options: CreatePostType
+): Promise<PostType> => {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   if (!apiUrl) {

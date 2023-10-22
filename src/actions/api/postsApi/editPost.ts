@@ -1,11 +1,13 @@
 import { toast } from 'react-toastify';
 import { ApiError, BadRequestError, NetworkError } from '@/lib/errors';
-import { IResponse } from '@/validation/interfaces/IResponse';
 import { PostType } from '@/validation/interfaces/IPost';
 
 const JSON_CONTENT_TYPE = 'application/json';
 
-export const getPosts = async (): Promise<IResponse<PostType>> => {
+export const editPost = async (
+  options: Partial<PostType>
+): Promise<PostType> => {
+  const { id: postId, ...restOptions } = options;
   const apiUrl = import.meta.env.VITE_API_URL;
 
   if (!apiUrl) {
@@ -13,8 +15,9 @@ export const getPosts = async (): Promise<IResponse<PostType>> => {
   }
 
   try {
-    const response = await fetch(`${apiUrl}/`, {
-      method: 'GET',
+    const response = await fetch(`${apiUrl}/${postId}/`, {
+      method: 'PATCH',
+      body: JSON.stringify(restOptions),
       headers: {
         'Content-Type': JSON_CONTENT_TYPE,
       },
@@ -29,7 +32,7 @@ export const getPosts = async (): Promise<IResponse<PostType>> => {
       }
     }
 
-    return await (response.json() as Promise<IResponse<PostType>>);
+    return await (response.json() as Promise<PostType>);
   } catch (error) {
     if (
       error instanceof ApiError
