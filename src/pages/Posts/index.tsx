@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/form';
 import { PostType } from '@/validation/interfaces/IPost';
 import { Textarea } from '@/components/ui/textarea';
+import { PostCard } from '@/components/post-card';
 
 const PostsView = () => {
   const { user } = useAuth();
@@ -106,6 +107,10 @@ const PostsView = () => {
             </Form>
           </CardContent>
         </Card>
+      </div>
+
+      <div className="container flex-col mt-6">
+        <PostCard />
       </div>
     </div>
   );
