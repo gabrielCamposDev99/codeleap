@@ -5,6 +5,7 @@ import {
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from './components/theme-provider.tsx';
 import App from './App.tsx';
 import './index.css';
@@ -12,6 +13,7 @@ import { AuthProvider } from './contexts/AuthProvider.tsx';
 import { ProtectedRoute } from './components/protected-route.tsx';
 import PostsView from './pages/Posts/index.tsx';
 import { BasicRoute } from './components/basic-route.tsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient();
 
@@ -42,6 +44,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Route path="private" element={<PostsView />} />
               </Route>
             </Routes>
+            <ToastContainer />
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </AuthProvider>
