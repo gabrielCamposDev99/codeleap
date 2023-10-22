@@ -15,9 +15,11 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { postSchema } from '@/validation/schemas/post-schema';
 import { PostType } from '@/validation/interfaces/IPost';
+import { useCreatePost } from '@/actions/api/postsApi/useCreatePost';
 
 export const PostForm = () => {
   const { user } = useAuth();
+  const { createPostMutate } = useCreatePost();
   const postForm = useForm<z.infer<typeof postSchema>>({
     resolver: zodResolver(postSchema),
     mode: 'onChange',
@@ -26,7 +28,7 @@ export const PostForm = () => {
     },
   });
 
-  const onSubmit = (data: PostType) => data;
+  const onSubmit = (data: PostType) => createPostMutate(data);
   return (
     <Form {...postForm}>
       <form onSubmit={postForm.handleSubmit(onSubmit)}>
