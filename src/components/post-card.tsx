@@ -45,7 +45,6 @@ export const PostCard = (props: PostCardProps) => {
     <Card key={`${title}${id}`}>
       <CardHeader className="bg-primary hover:bg-primary/90 flex rounded-t-lg justify-between p-6 items-center">
         <CardTitle className="text-slate-100">{title}</CardTitle>
-        {/* @TODO refact this block of code */}
         {username === user?.username && (
           <div className="flex justify-between gap-6">
             <Dialog>
