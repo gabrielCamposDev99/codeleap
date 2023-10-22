@@ -1,7 +1,4 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useAuth } from '@/contexts/AuthProvider';
+import { UseFormReturn } from 'react-hook-form';
 import {
   Form,
   FormControl,
@@ -9,26 +6,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from './ui/form';
-import { Textarea } from './ui/textarea';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { postSchema } from '@/validation/schemas/post-schema';
-import { PostType } from '@/validation/interfaces/IPost';
-import { useCreatePost } from '@/actions/api/postsApi/useCreatePost';
+} from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { CreatePostType } from '@/validation/interfaces/IPost';
 
-export const PostForm = () => {
-  const { user } = useAuth();
-  const { createPostMutate } = useCreatePost();
-  const postForm = useForm<z.infer<typeof postSchema>>({
-    resolver: zodResolver(postSchema),
-    mode: 'onChange',
-    defaultValues: {
-      username: user?.username,
-    },
-  });
+type PostFormProps = {
+  form: UseFormReturn<CreatePostType>;
+  onSubmit: (data: CreatePostType) => void;
+};
 
-  const onSubmit = (data: PostType) => createPostMutate(data);
+export const PostForm = (props: PostFormProps) => {
+  const { form: postForm, onSubmit } = props;
+
   return (
     <Form {...postForm}>
       <form onSubmit={postForm.handleSubmit(onSubmit)}>
