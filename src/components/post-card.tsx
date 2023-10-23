@@ -44,7 +44,9 @@ export const PostCard = (props: PostCardProps) => {
   return (
     <Card key={`${title}${id}`}>
       <CardHeader className="bg-primary hover:bg-primary/90 flex rounded-t-lg justify-between p-6 items-center">
-        <CardTitle className="text-slate-100">{title}</CardTitle>
+        <CardTitle className="text-slate-100 line-clamp-1 w-5/6">
+          {title}
+        </CardTitle>
         {username === user?.username && (
           <div className="flex justify-between gap-6">
             <Dialog>
@@ -100,7 +102,9 @@ export const PostCard = (props: PostCardProps) => {
             {formatDateByLocale(createdDateTime)}
           </h4>
         </div>
-        <p className="leading-7 [&:not(:first-child)]:mt-3">{content}</p>
+        <p className="leading-7 [&:not(:first-child)]:mt-3 break-words">
+          {content}
+        </p>
       </CardContent>
     </Card>
   );
