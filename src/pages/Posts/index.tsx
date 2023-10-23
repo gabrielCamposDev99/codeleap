@@ -15,9 +15,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { CardSkeleton } from '@/components/card-skeleton';
 
 const PostsView = () => {
-  const { posts } = usePosts();
+  const { posts, isLoading, isRefetching } = usePosts();
   return (
     <div>
       <div className=" flex-col md:flex bg-primary hover:bg-primary/90">
@@ -68,6 +69,9 @@ const PostsView = () => {
         <List
           data={posts?.results}
           render={(post: PostType) => <PostCard {...post} key={post.id} />}
+          isLoading={isLoading}
+          isRefetching={isRefetching}
+          LoadingRender={CardSkeleton}
         />
       </div>
     </div>
